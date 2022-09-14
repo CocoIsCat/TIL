@@ -207,3 +207,4 @@ https://www.gitignore.io
 # TIL 사용법
 
 - 공부하는 언어 별, 프레임워크 별로 디렉터리 만들기
+- 매일 한번씩 commit하기
