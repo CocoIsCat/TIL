@@ -73,3 +73,12 @@
         - 한 사이클이 끝났으면 organization의 repo 끌어옴
             - git remote add upstream(별명) [repo 주소]
             - git pull 또는 git fetch&merge
+    
+    ---
+    
+    # Pull Request 시 충돌 해결
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/91be61ba-92bf-49f9-9fa6-527566076401/Untitled.png)
+    
+    - git fetch로 organization의 repo 업데이트
+    - 내 repo에서 merge해서 해결하고 다시 pull request 요청
