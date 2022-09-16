@@ -1,0 +1,75 @@
+# Revert Practice
+
+## Working directory에서 변경 사항이 발생했을 경우
+
+### Staging area
+
+1. 파일 명을 변경할 경우
+    - git mv 명령어 사용
+    - 파일 이름을 변경했을 경우 git에서 추적할 수 없어서 문제가 생김
+    - 파일이 수정된 것이 아니라 파일이 삭제되고 새로 만들어진 것으로 간주함
+    - mv 명령어 대신 git mv 명령어를 사용해서 git에게 통보해줘야 함
+    
+2. 파일을 복구해야 할 경우
+    - git restore [파일명] : 해당 파일을 최신 commit 상태로 돌림
+    - git restore . : 현재 위치에 있는 모든 변화사항을 최신 commit 상태로 돌림
+    - 마지막 commit을 했던 순간으로 돌아감
+
+1. stage에 올렸던 것을 내리고 싶을 때
+    - git reset HEAD [파일명]
+    - HEAD : 내가 일하고 있는 최신의 상태를 의미함
+    
+
+### Commit
+
+1. commit 메세지를 변경하고 싶을 경우
+    - git commit —amend : 최신 commit 메세지 수정
+    - git rebase -i : 이전 commit 메세지 수정
+        - 수정하고 싶은 commit 내역 앞의 [pick]을  [reword]로 변경
+    
+2. commit  reset
+    - 아예 세상에 없던 일로 만드는 것
+    - git reset —hard HEAD~3 : 최근 3개의 커밋 내역을 삭제
+    - git push -f origin [브랜치명] : 강제 push
+    - 위험도가 높으니 사용하는 것을 추천하지 않음
+    
+3. commit revert
+    - 잘못된 것을 바로잡는 것
+    - git revert HEAD~3.. : 최신의 상태로부터 3개를 순차적으로 바로잡음
+        - git revert —no-commit : commit을 몰아서 하고 싶을 때
+
+---
+
+# Collaborate with Team
+
+## Git과 Github을 사용해서 협업하는 방법
+
+1. Github에서 collaborators 추가
+    - 협업자에게 repo의 주인과 같은 역할을 줌
+    - 오픈소스 프로젝트에서 repo를 관리하는 사람을 두기 위해 사용
+    - 실제로 개발을 하기 위해서는 사용하지 않음
+2. Organization 생성해서 협업
+    1. 팀장이 하는 일
+        - 조원 초대
+        - repo 생성
+        - issue 템플릿 작성
+            - commit으로 적용되기 때문에 다른 사람들이 가져가기 전에 만들어야 함
+            - 조원들이 해야할 일
+            - 앞으로 해야할 일
+            - 무슨 일을 했는지
+        - git flow를 사용할 것이기 때문에  develop 브랜치를 생성해야 함
+            - git flow init 수행
+        - pull request 받아줄지 검증
+    2. 팀원이 하는 일
+        - repo fork
+            - copy the main branch 해제
+        - fork한 내 repo clone하기
+        - 개발 수행 → 내 repo에 push
+        - 팀장에게 pull request (내 develop → 팀 develop)
+        - 내가 어떤 issue를 해결했는지 바로 연결됨
+            - resolve# - resolves# - resolved# : 새로운 개발
+            - fix# - fixes# - fixed# : 버그 해결
+            - close# - closes#- closed#
+        - 한 사이클이 끝났으면 organization의 repo 끌어옴
+            - git remote add upstream(별명) [repo 주소]
+            - git pull 또는 git fetch&merge
